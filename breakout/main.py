@@ -14,7 +14,7 @@ def handle_objects(movables, delta):
     for o in movables:
         for t in movables:
             if o.test_collision(t):
-                o.resolve_collision(t.rect)
+                o.resolve_collision(t.rect, 3)
 
 
 def run():

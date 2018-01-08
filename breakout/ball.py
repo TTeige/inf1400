@@ -1,4 +1,5 @@
 import pygame
+import math
 from breakout.movable import Movable
 from breakout.object_types import object_types
 
@@ -35,17 +36,28 @@ class Ball(Movable):
             self.x = self.screen.get_width() - self.radius
             self.velocity[0] *= -1
 
-    def resolve_collision(self, other, type):
+    def resolve_collision(self, other, other_type):
         if self.velocity[1] > 0:
             self.y = other.y - self.radius
         else:
             self.y = other.y + other.h + self.radius
 
-        if type == object_types["paddle"]:
-            pass
-        # hyp = math.sqrt(self.velocity[0]**2 + self.velocity[1]**2)
-        #
-        # self.angle = math.cos(self.velocity[0] / hyp)
+        if other_type == object_types["paddle"]:
+            n1 = 1
+            other_center = other.x + other.w / 2
+            dist = math.fabs(self.x - other_center)
+            norm_dist_w = dist / (other.w / 2)
+            n2 = 1 + norm_dist_w
+            hyp = math.sqrt(self.velocity[0]**2 + self.velocity[1]**2)
+            self.angle = math.cos(self.velocity[0] / hyp)
+            new_angle = n2 / n1 * math.sin(self.angle)
+
+            if self.x > other_center:
+                new_vx = math.sin(new_angle) * self.velocity[1]
+            else:
+                new_vx = math.sin(-new_angle) * self.velocity[1]
+
+            self.velocity[0] = new_vx
 
 
 
