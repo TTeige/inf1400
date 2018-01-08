@@ -4,6 +4,7 @@ import random
 import sys
 
 from breakout.ball import Ball
+from breakout.object_types import object_types
 from breakout.paddle import Paddle
 
 
@@ -27,6 +28,7 @@ def run():
     paddle = Paddle(screen, width / 2, y=height - 100, color=pygame.Color('grey'))
 
     movables = [ball, paddle]
+    balls = [ball]
 
     current_time = time.time()
     while True:
@@ -44,7 +46,13 @@ def run():
         # Semi-fixed timestep
         while frame_time > 0.0:
             delta = min(frame_time, dt)
-            handle_objects(movables, delta)
+            # handle_objects(movables, delta)
+            [o.move(delta) for o in movables]
+
+            for ball in balls:
+                if ball.test_collision(paddle):
+                    ball.resolve_collision(paddle, object_types["paddle"])
+
             frame_time -= delta
 
         screen.fill(pygame.Color('black'))

@@ -1,12 +1,12 @@
 import pygame
 import math
-from breakout.movable import Movable
+from breakout.object import Object
 from breakout.object_types import object_types
 
 
-class Ball(Movable):
+class Ball(Object):
     def __init__(self, screen, radius=10, color=pygame.Color('grey'), x=0, y=0):
-        Movable.__init__(self, x, y, radius, radius, screen)
+        Object.__init__(self, x, y, radius, radius, screen)
         self.radius = radius
         self.color = color
         self.x = x
@@ -58,7 +58,5 @@ class Ball(Movable):
                 new_vx = math.sin(-new_angle) * self.velocity[1]
 
             self.velocity[0] = new_vx
-
-
 
         self.velocity[1] *= -1

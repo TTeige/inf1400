@@ -1,12 +1,12 @@
 import pygame
 
-from breakout.movable import Movable
+from breakout.object import Object
 from breakout.object_types import object_types
 
 
-class Paddle(Movable):
+class Paddle(Object):
     def __init__(self, screen, x, y, width=300, height=20, color=pygame.Color('blue')):
-        Movable.__init__(self, x, y, width, height, screen)
+        Object.__init__(self, x, y, width, height, screen)
         self.color = color
         self.type = object_types["paddle"]
 
