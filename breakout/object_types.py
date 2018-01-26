@@ -1,1 +1,1 @@
-object_types = {"ball": 1, "brick": 2, "paddle": 3}
+object_types = {"ball": 1, "block": 2, "paddle": 3}
